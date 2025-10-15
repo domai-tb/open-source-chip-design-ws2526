@@ -51,14 +51,14 @@ SIM ?= verilator
 COCOTB_TEST_MODULES ?= $(TEST)
 
 # Verilator configuration
-VERILATOR_ROOT = /path/to/verilator
-VERILATOR_BIN_DIR = $(VERILATOR_ROOT)/bin
-PATH := $(VERILATOR_ROOT)/bin:$(PATH)
+# VERILATOR_ROOT = /path/to/verilator
+# VERILATOR_BIN_DIR = $(VERILATOR_ROOT)/bin
+# PATH := $(VERILATOR_ROOT)/bin:$(PATH)
 
-# Export variables for cocotb
-export VERILATOR_ROOT
-export VERILATOR_BIN_DIR
-export PATH
+# # Export variables for cocotb
+# export VERILATOR_ROOT
+# export VERILATOR_BIN_DIR
+# export PATH
 
 # Make the testbench package visible
 export PYTHONPATH := $(PWD)/tb:$(PYTHONPATH)
