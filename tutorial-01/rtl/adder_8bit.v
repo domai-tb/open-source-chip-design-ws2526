@@ -6,24 +6,27 @@ module adder_8bit (
     output wire       cout
 );
 
-// 9-value wire
-wire [8:0] carry;
+    // Internal carry chain: carry[0] = cin, carry[8] = cout
+    wire [8:0] carry;
 
-// In = First, Out = Last
-assign carry[0] = cin;
-assign carry[8] = cout;
+    // Connect first carry in
+    assign carry[0] = cin;
 
-genvar i;
-generate
-    for (i = 0; i < 8; i += 1) begin : adder_stage
-        full_adder fa(
-            .a(a[i]),
-            .b(b[i]),
-            .cin(carry[i]),
-            .sum(sum[i]),
-            .cout(carry[i+1])
-        );
-    end
-endgenerate
+    // Connect final carry out
+    assign cout = carry[8];
+
+    // Generate 8 full adder instances using a loop
+    genvar i;
+    generate
+        for (i = 0; i < 8; i = i + 1) begin : adder_stage
+            full_adder fa (
+                .a(a[i]),
+                .b(b[i]),
+                .cin(carry[i]),
+                .sum(sum[i]),
+                .cout(carry[i+1])
+            );
+        end
+    endgenerate
 
 endmodule

@@ -6,29 +6,28 @@ module full_adder (
     output wire cout
 );
 
-// We could actually do:
-//  assign sum = a + b;
-// The problem with that is, that we
-// don't have any control of the chip design.
+    // Internal wires for connecting the two half adders
+    wire sum_temp;
+    wire carry1;
+    wire carry2;
 
-wire sum_tmp;
-wire carry_tmp;
-wire carry2_tmp;
+    // First half adder: adds a and b
+    half_adder ha1 (
+        .a(a),
+        .b(b),
+        .sum(sum_temp),
+        .carry(carry1)
+    );
 
-half_adder ha1(
-    .a(a),
-    .b(b),
-    .sum(sum_tmp),
-    .carry(carry_tmp)
-);
+    // Second half adder: adds sum_temp and cin
+    half_adder ha2 (
+        .a(cin),
+        .b(sum_temp),
+        .sum(sum),
+        .carry(carry2)
+    );
 
-half_adder ha2(
-    .a(cin),
-    .b(sum_tmp),
-    .sum(),
-    .carry(carry2_tmp)
-);
-
-assign cout = carry2_tmp | carry_tmp;
+    // Final carry out is OR of both carries
+    assign cout = carry1 | carry2;
 
 endmodule

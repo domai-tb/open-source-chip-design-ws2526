@@ -5,7 +5,7 @@ module half_adder (
     output wire carry
 );
 
-assign sum = a ^ b;
-assign carry = a & b;
+    assign sum   = a ^ b;
+    assign carry = a & b;
 
 endmodule
