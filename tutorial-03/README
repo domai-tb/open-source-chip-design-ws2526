@@ -1,0 +1,7 @@
+1. Move files into their respective folders from ls01/ls02
+2. Add this rule below the traffic rule in your Makefile
+
+clk_div:
+	@$(MAKE) clean > /dev/null 2>&1
+	@$(MAKE) sim TOPLEVEL=clk_divider_prog TEST=test_clk_div \
+		VERILOG_SOURCES="$(PWD)/rtl/clk_div.v"
