@@ -12,6 +12,31 @@ module clk_divider_prog (
     output reg        clk_div  // divided clock
 );
 
+reg [3:0] cnt;
+reg [3:0] div_eff;
+
+always @(posedge clk ) begin
+    if (rst) begin
+        cnt <= 4'd0;
+        clk_div <= 1'b0;
+        div_eff <= 4'd2;
+    end
+
+    if (div < 4'd2)
+        div_eff <= 4'd2;
+    else
+        div_eff <= div;
+
+    if (cnt >= (div_eff-1)) 
+        cnt <= 4'd0;
+    else
+        cnt <= cnt + 4'd1;
+
+    if (cnt < (div_eff >> 1))
+        clk_div <= 1'b1;
+    else 
+        clk_div <= 1'b0; 
+end
 
 
 endmodule
