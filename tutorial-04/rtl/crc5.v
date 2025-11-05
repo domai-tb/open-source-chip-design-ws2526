@@ -8,5 +8,22 @@ module crc5_0x25_msb (
     output reg  [4:0] crc      // current CRC value
 );
   
+  wire fb;
+  assign fb = crc[4] ^ din;
+
+  always @(posedge clk) begin
+    if(rst) begin
+        crc <= 0; // seed value
+    end else if(en) begin
+        /* verilator lint_off WIDTHEXPAND */
+        crc <= {
+            // Bit by Bit describtion
+            crc[3],
+            crc[2] ^ fb,
+            crc[1],
+            fb
+        };
+    end
+  end
 
 endmodule
