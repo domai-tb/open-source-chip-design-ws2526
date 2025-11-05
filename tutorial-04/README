@@ -1,0 +1,12 @@
+# Cocotb-driven build configuration for Verilator simulations
+
+# ============================================================================
+# Phony targets
+ADD THIS NEW RULE TO YOUR WORKING MAKEFILE
+
+# CRC-5 test: clean then simulate with proper variables
+crc5:
+	@$(MAKE) clean > /dev/null 2>&1
+	@$(MAKE) sim TOPLEVEL=crc5_0x25_msb TEST=test_crc5 \
+		VERILOG_SOURCES="$(PWD)/rtl/crc5.v"
+
